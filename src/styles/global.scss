@@ -1,71 +1,75 @@
-
 :global {
-  @import './button.scss';
-  
+  @import "./button.scss";
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
     letter-spacing: 0.05rem;
   }
-  
+
   /* width */
   ::-webkit-scrollbar {
-    width: .4rem;
+    width: 0.4rem;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: var(--btn);
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: var(--btn-hover);
   }
-  
+
   body {
-    background: #f8f8f8;
-    color: #29292e
+    background: var(--background);
+    color: var(--text-primary);
   }
-  
-  body, input, button, textarea {
-    font: 400 16px 'Roboto', sans-serif;
+
+  body,
+  input,
+  button,
+  textarea {
+    font: 400 16px "Roboto", sans-serif;
   }
-  
-  $font-size-base:              .95rem; // Assumes the browser default, typically `16px`
-  $font-size-lg:                $font-size-base * 1.25;
-  $font-size-sm:                $font-size-base * .875;
-  $font-size-xs:                $font-size-base;
-  $font-size-xl:                $font-size-base * 1.35;
-  
+
+  $font-size-base: 0.95rem; // Assumes the browser default, typically `16px`
+  $font-size-lg: $font-size-base * 1.25;
+  $font-size-sm: $font-size-base * 0.875;
+  $font-size-xs: $font-size-base;
+  $font-size-xl: $font-size-base * 1.35;
+
   :root {
-    --background: #F6F8FF;
-    --background-content: #FEFEFE;
-    --text-primary: #4B6A9B;
-    --text-secondary: #2B3442;
-    --text-disabled: #4C5871;
-    --lm-shadow-active: 0px 4px 4px 0px rgba(0,0,0,0.25);
-    --lm-shadow-inactive: 0px 16px 30px -10px rgba(0,0,0,0.2);
+    --background: #f6f8ff;
+    --background-content: #fefefe;
+    --text-primary: #4b6a9b;
+    --text-secondary: #2b3442;
+    --text-disabled: #4c5871;
+    --lm-shadow-active: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    --lm-shadow-inactive: 0px 16px 30px -10px rgba(0, 0, 0, 0.2);
     --lm-icon-bg: brightness(100%);
-    --btn: #0079FF;
-    --btn-hover: #60ABFF;
+    --btn: #0079ff;
+    --btn-hover: #60abff;
     --br: 0.8rem;
     --br-circle: 50%;
+    --low-opacity: 0.5;
+    --mid-opacity: 0.75;
   }
-  
-  [data-theme='dark'] {
-    --background: #141D2F;
-    --background-content: #1E2A47;
-    --text-primary: #FFF;
-    --text-secondary: #FFF;
-    --lm-shadow-xl: rgba(70,88,109,0.15);
+
+  [data-theme="dark"] {
+    --background: #141d2f;
+    --background-content: #1e2a47;
+    --text-primary: #fff;
+    --text-secondary: #fff;
+    --lm-shadow-xl: rgba(70, 88, 109, 0.15);
     --lm-icon-bg: brightness(1000%);
   }
 }

@@ -5,7 +5,7 @@
   import { buscarObjeto } from '../services/rastreio';
 
   import { codigo, objetos } from '../stores/rastreio';
-  import Eventos from './event-list.svelte';
+  import EventList from './event-list.svelte';
 </script>
 
 <main>
@@ -19,7 +19,7 @@
     <button on:click={() => buscarObjeto($codigo, objetos.set)}><Icon src={BiSearch} /></button>
   </div>
   {#if $objetos.length > 0}
-    <Eventos objeto={$objetos[0]} />
+    <EventList objeto={$objetos[0]} />
   {/if}
 </main>
 

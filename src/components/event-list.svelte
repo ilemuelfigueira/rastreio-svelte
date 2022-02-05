@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Evento, Objeto } from '../services/rastreio/index.types';
-  import FeedbackEvent from './event-feedback.svelte';
+  import EventFeedback from './event-feedback.svelte';
 
   export let objeto: Objeto = null;
 
@@ -22,7 +22,7 @@
 <div class="lista-eventos">
   {#if Boolean(objeto)}
     {#each objeto.eventos as evento}
-      <FeedbackEvent
+      <EventFeedback
         item={{
           date: evento.dtHrCriado.toString(),
           from: getFrom(evento),

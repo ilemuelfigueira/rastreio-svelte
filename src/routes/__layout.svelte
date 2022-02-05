@@ -1,13 +1,9 @@
-<script lang="ts">
-  import RedirectIconButton from '../components/RedirectIconButton.svelte';
-  import AiFillHome from 'svelte-icons-pack/ai/AiFillHome';
+<script>
+  import Nav from '../components/nav.svelte';
 </script>
 
 <main>
-  <nav>
-    <RedirectIconButton text="Home" src={AiFillHome} href="/" />
-  </nav>
-
+  <Nav />
   <section class="page">
     <slot />
   </section>

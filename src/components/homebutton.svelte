@@ -5,7 +5,7 @@
   export let src: any;
   export let href: string;
 
-  function redirect(url: string) {
+  async function redirect(url: string) {
     const location = window.location.pathname;
 
     if (location === url) return;

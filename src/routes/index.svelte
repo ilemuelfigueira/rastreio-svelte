@@ -1,16 +1,19 @@
-<script>
-  function onClick() {
-    console.log('clicked');
-  }
+<script lang="ts">
+  import Rastreio from '../components/rastreio.svelte';
 </script>
 
 <main>
-  <h1>Hello</h1>
-  <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+  <Rastreio />
 </main>
-
-<button class="global-button" on:click={() => onClick()}> OK </button>
 
 <style type="text/scss">
   @import '../styles/global.scss';
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 80vh;
+  }
 </style>

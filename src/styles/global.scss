@@ -6,7 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.01rem;
   }
 
   /* width */
@@ -38,7 +38,7 @@
   input,
   button,
   textarea {
-    font: 400 16px "Roboto", sans-serif;
+    font: 400 16px "Poppins", sans-serif;
   }
 
   $font-size-base: 0.95rem; // Assumes the browser default, typically `16px`

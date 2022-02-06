@@ -13,16 +13,14 @@
 
     border-radius: 5px;
 
-    font-size: 1rem;
     font-weight: 600;
 
     width: 100%;
-    min-width: max-content;
 
     background: var(--background);
 
     &::placeholder {
-      font-size: 0.8rem;
+      font-size: small;
       font-weight: 500;
     }
 

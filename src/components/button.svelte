@@ -45,7 +45,7 @@
 
     :global {
       .icon {
-        font-size: 1.5rem;
+        font-size: x-large;
         fill: var(--input-error);
         stroke: var(--input-error);
       }

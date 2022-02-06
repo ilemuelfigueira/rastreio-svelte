@@ -19,7 +19,7 @@
     }
   }
 
-  $: $codigo, status.set('');
+  $: $codigo, status.set('error');
 </script>
 
 <main>
@@ -45,9 +45,9 @@
     gap: 1rem;
 
     position: relative;
-    width: 60vw;
+    width: 70vw;
 
-    min-width: 300px;
+    min-width: 200px;
 
     height: 4rem;
   }

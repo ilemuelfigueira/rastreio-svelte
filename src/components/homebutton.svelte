@@ -32,12 +32,12 @@
       gap: 0.3rem;
 
       .info-icon {
-        font-size: 1.5rem;
+        font-size: x-large;
         fill: var(--text-primary);
       }
 
       .text {
-        font-size: 1.3rem;
+        font-size: x-large;
         color: var(--text-primary);
       }
 

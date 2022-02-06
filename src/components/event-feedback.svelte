@@ -22,7 +22,7 @@
       </span>
     {/if}
   </div>
-  <span>
+  <span class="period-date">
     {#if Boolean(item.date)}
       {new Date(item.date).toLocaleString('pt-BR', { timeZone: 'UTC' })}
     {/if}
@@ -44,6 +44,8 @@
     border-top: 1px solid var(--btn);
     border-radius: var(--br);
 
+    gap: 0.3rem;
+
     .header {
       display: flex;
       justify-content: flex-start;
@@ -58,7 +60,7 @@
       }
 
       span {
-        font-size: 1rem;
+        font-size: large;
         font-weight: bold;
       }
     }
@@ -68,6 +70,29 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+
+      font-size: small;
     }
+
+    .period-date {
+      font-size: small;
+      font-style: italic;
+    }
+
+    /* @media (max-width: 600px) {
+      .header {
+        span {
+          font-size: small;
+        }
+      }
+
+      .localizacao {
+        font-size: x-small;
+      }
+
+      .period-date {
+        font-size: x-small;
+      }
+    } */
   }
 </style>

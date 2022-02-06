@@ -4,5 +4,5 @@
 </script>
 
 <nav>
-  <HomeButton text="Home" src={AiFillHome} href="/" />
+  <HomeButton text="Início" src={AiFillHome} href="/" />
 </nav>

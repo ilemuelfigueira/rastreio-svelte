@@ -1,6 +1,4 @@
 :global {
-  @import "./button.scss";
-
   * {
     margin: 0;
     padding: 0;
@@ -58,7 +56,11 @@
     --lm-icon-bg: brightness(100%);
     --btn: #0079ff;
     --btn-hover: #60abff;
-    --br: 0.8rem;
+    --input-focus: #006cff;
+    --input-hover: #ffc000;
+    --border-inactive: #e6e6e6;
+    --hover-brightness: 0.95;
+    --br: 5px;
     --br-circle: 50%;
     --low-opacity: 0.5;
     --mid-opacity: 0.75;

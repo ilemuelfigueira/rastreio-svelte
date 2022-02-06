@@ -39,7 +39,6 @@
     padding: 0.2rem 0.8rem;
     box-shadow: var(--lm-shadow-inactive);
 
-    min-width: max-content;
     width: 100%;
 
     border-top: 1px solid var(--btn);

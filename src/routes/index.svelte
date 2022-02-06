@@ -6,6 +6,10 @@
   <Rastreio />
 </main>
 
+<svelte:head>
+  <title>Rastreio</title>
+</svelte:head>
+
 <style type="text/scss">
   @import '../styles/global.scss';
 

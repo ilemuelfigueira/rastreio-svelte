@@ -2,12 +2,14 @@
   import { buscarObjeto } from '../services/rastreio';
 
   import { codigo, objetos, status } from '../stores/rastreio';
+  import Button from './button.svelte';
   import EventList from './event-list.svelte';
   import TextInput from './text-input.svelte';
 
   async function handleClick() {
     try {
       status.set('loading');
+      objetos.set([]);
       const data = await buscarObjeto($codigo);
 
       objetos.set(data.objetos);
@@ -17,17 +19,14 @@
     }
   }
 
-  $: if ($status !== '') {
-    alert($status);
-  }
-
   $: $codigo, status.set('');
 </script>
 
 <main>
   <div class="input-list">
     <TextInput bind:value={$codigo} placeholder="Digite o código do objeto" />
-    <button on:click={() => handleClick()}> Buscar </button>
+
+    <Button status={$status} on:click={() => handleClick()}>Buscar</Button>
   </div>
   {#if $objetos.length > 0}
     <div class="response">
@@ -64,6 +63,8 @@
     position: absolute;
     top: 0;
     left: 0;
+
+    height: 3rem;
   }
 
   .response {
@@ -79,27 +80,5 @@
 
     border-radius: var(--br);
     background: var(--background-content);
-  }
-
-  button {
-    padding: 0.5rem;
-
-    font-family: 'Poppins', sans-serif;
-
-    border: 1px solid #ccc;
-    border-radius: var(--br);
-
-    outline: none;
-
-    background: var(--background);
-
-    &:hover {
-      border-color: var(--input-hover);
-      cursor: pointer;
-    }
-
-    &:active {
-      border-color: var(--input-focus);
-    }
   }
 </style>

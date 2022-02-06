@@ -7,7 +7,11 @@ export async function buscarObjeto(codigo: string): Promise<RastreioResponse> {
     url: `https://cors-anywhere.herokuapp.com/https://proxyapp.correios.com.br/v1/sro-rastro/${codigo}`,
   };
 
-  const { data } = await axios.request<RastreioResponse>(config);
+  const { data } = await axios.request(config);
+
+  const isValid = data.objetos[0].eventos;
+
+  if (!isValid) throw new Error('Código inválido');
 
   return data;
 }

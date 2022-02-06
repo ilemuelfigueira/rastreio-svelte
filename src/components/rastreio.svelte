@@ -19,7 +19,7 @@
     }
   }
 
-  $: $codigo, status.set('error');
+  $: $codigo, status.set('');
 </script>
 
 <main>

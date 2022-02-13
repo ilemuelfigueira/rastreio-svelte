@@ -1,9 +1,14 @@
 <script lang="ts">
   export let value: string;
   export let placeholder: string;
+  export let password: boolean = false;
 </script>
 
-<input type="text" bind:value {placeholder} />
+{#if !password}
+  <input type="text" bind:value {placeholder} />
+{:else if password}
+  <input type="password" bind:value {placeholder} />
+{/if}
 
 <style type="text/scss">
   input {

@@ -8,11 +8,15 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const userStore = writable<{ id: string; email: string }>();
 
+export const isSigned = writable(false);
+
 supabase.auth.onAuthStateChange((event, session) => {
   if (event == 'SIGNED_IN') {
-    userStore.set(session.user);
+    userStore.set({ id: session.user.id, email: session.user.email });
+    isSigned.set(true);
   } else if (event == 'SIGNED_OUT') {
     userStore.set(null);
+    isSigned.set(false);
   }
 });
 

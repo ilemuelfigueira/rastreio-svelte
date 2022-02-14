@@ -15,7 +15,9 @@
 </script>
 
 <div class="home" on:click={() => redirect(href)}>
-  <Icon className="info-icon" {src} />
+  {#if src}
+    <Icon className="info-icon" {src} />
+  {/if}
   <span class="text">{text}</span>
 </div>
 

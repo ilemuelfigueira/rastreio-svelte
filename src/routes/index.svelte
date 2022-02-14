@@ -1,5 +1,1 @@
-<script>
-  import SignUp from '../pages/signUp.svelte';
-</script>
-
-<SignUp />
+<h1>Rastreio</h1>

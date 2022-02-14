@@ -24,9 +24,13 @@
 
       status.set('success');
     } catch (error) {
-      alert('Invalid email or password');
+      alert('Login ou senha inválidos');
       status.set('error');
     }
+  }
+
+  $: if ($userStore) {
+    window.location.replace('/rastreio');
   }
 </script>
 
@@ -39,7 +43,7 @@
       <span>Mostrar senha</span>
     </div>
   </div>
-  <Button status={$status} on:click={() => handleSignIn($email, $password)}>Sign In</Button>
+  <Button status={$status} on:click={() => handleSignIn($email, $password)}>Entrar</Button>
 </main>
 
 <style type="text/scss">

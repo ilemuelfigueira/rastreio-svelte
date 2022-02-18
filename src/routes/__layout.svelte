@@ -30,7 +30,7 @@
       <button on:click={() => redirect('/rastreio')}> Rastreio </button>
       {#if $isSigned}
         <button on:click={() => redirect('/objects')}> Objetos </button>
-        <button on:click={() => signOut()}> Sair </button>
+        <button on:click={() => signOut()}> Desconectar </button>
       {:else}
         <button on:click={() => redirect('/signIn')}> Entrar </button>
       {/if}

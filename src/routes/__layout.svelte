@@ -32,7 +32,7 @@
         <button on:click={() => redirect('/objects')}> Objetos </button>
         <button on:click={() => signOut()}> Sair </button>
       {:else}
-        <button on:click={() => redirect('/signIn')}> Entrar </button>
+        <button on:click={() => redirect('/signIn')}> Logar </button>
       {/if}
     </ul>
   </nav>

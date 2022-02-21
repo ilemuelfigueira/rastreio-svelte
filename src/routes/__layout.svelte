@@ -6,6 +6,7 @@
 
   import HomeButton from '../components/homebutton.svelte';
   import { isOpen } from '../stores/dropdown';
+  import { page } from '$app/stores';
   import { isSigned, signOut } from '../supabase.client';
 
   async function redirect(url: string) {
@@ -15,6 +16,11 @@
 
     window.location.href = url;
     isOpen.set(false);
+  }
+
+  function isActive(url: string) {
+    const result = url === $page.url.pathname;
+    return result;
   }
 </script>
 
@@ -26,10 +32,20 @@
       <Icon className="icon" src={CgDetailsMore} />
     </button>
 
-    <ul class:hidden={!$isOpen} on:blur={() => isOpen.update((old) => !old)}>
-      <button on:click={() => redirect('/rastreio')}> Rastreio </button>
+    <ul class:hidden={!$isOpen}>
+      <button
+        class={`${isActive('/tracking') ? 'active' : ''}`}
+        on:click={() => redirect('/tracking')}
+      >
+        Rastreio
+      </button>
       {#if $isSigned}
-        <button on:click={() => redirect('/objects')}> Objetos </button>
+        <button
+          class={`${isActive('/objects') ? 'active' : ''}`}
+          on:click={() => redirect('/objects')}
+        >
+          Objetos
+        </button>
         <button on:click={() => signOut()}> Sair </button>
       {:else}
         <button on:click={() => redirect('/signIn')}> Entrar </button>
@@ -44,7 +60,13 @@
 <style type="text/scss">
   @import '../styles/global.scss';
 
+  .active {
+    filter: brightness(0.9);
+  }
+
   button {
+    cursor: pointer;
+
     outline: none;
     border: none;
 
@@ -133,7 +155,7 @@
     background: var(--background);
 
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 4rem);
     position: relative;
 
     display: flex;

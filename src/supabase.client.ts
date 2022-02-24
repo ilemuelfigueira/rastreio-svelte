@@ -32,10 +32,27 @@ export function signOut() {
   return supabase.auth.signOut();
 }
 
-export function getProfiles() {
-  return supabase.from('profiles').select('name');
+export async function getProfiles() {
+  return await supabase.from('profiles').select('name');
 }
 
-export function getObjectsFromEmail(email: string) {
-  return supabase.rpc('get_busca_objetos_from_user', { _user_email: email });
+export async function getObjectsFromEmail(email: string) {
+  return await supabase.rpc('get_busca_objetos_from_user', { _user_email: email });
+}
+
+export async function storeObject(codigo: string, email: string) {
+  try {
+    const { data, error } = await supabase.rpc('sp_se_store_object', {
+      _user_email: email,
+      _codigo: codigo,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  } catch (error) {
+    alert(error.message);
+  }
 }

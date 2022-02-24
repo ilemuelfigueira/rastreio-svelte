@@ -109,6 +109,10 @@
         stroke: var(--secondary);
         color: var(--secondary);
       }
+
+      &:active {
+        transform: scale(0.9);
+      }
     }
   }
 
@@ -163,15 +167,14 @@
 
       &:active {
         filter: brightness(1);
+        transform: scale(0.9);
       }
     }
   }
 
   nav {
     display: flex;
-    /* position: sticky; */
     position: relative;
-    /* top: 0; */
 
     justify-content: space-between;
     align-items: center;

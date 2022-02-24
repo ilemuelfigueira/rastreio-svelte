@@ -1,32 +1,36 @@
 <script lang="ts">
+  import Icon from 'svelte-icons-pack';
+  import HiOutlineTag from 'svelte-icons-pack/hi/HiOutlineTag';
+
   import { buscarObjeto } from '../services/rastreio';
 
-  import { codigo, objetos, status } from '../stores/rastreio';
+  import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
+  import { storeObject, userStore } from '../supabase.client';
   import Button from './button.svelte';
   import EventList from './event-list.svelte';
   import TextInput from './text-input.svelte';
 
   async function handleClick() {
     try {
-      status.set('loading');
+      statusRastreio.set('loading');
       objetos.set([]);
       const data = await buscarObjeto($codigo);
 
       objetos.set(data.objetos);
-      status.set('success');
+      statusRastreio.set('success');
     } catch (error) {
-      status.set('error');
+      statusRastreio.set('error');
     }
   }
 
-  $: $codigo, status.set('');
+  $: $codigo, statusRastreio.set('');
 </script>
 
 <main>
   <div class="input-list">
     <TextInput bind:value={$codigo} placeholder="Digite o código do objeto" />
 
-    <Button status={$status} on:click={() => handleClick()}>Buscar</Button>
+    <Button status={$statusRastreio} on:click={() => handleClick()}>Buscar</Button>
   </div>
   {#if $objetos.length > 0}
     <div class="response">
@@ -34,6 +38,12 @@
     </div>
   {/if}
 </main>
+
+{#if $objetos.length > 0 && $userStore?.email}
+  <button class="salvar-objeto" on:click={() => storeObject($codigo, $userStore.email)}>
+    <Icon className="icon" src={HiOutlineTag} />
+  </button>
+{/if}
 
 <style type="text/scss">
   main {
@@ -80,5 +90,42 @@
 
     border-radius: var(--br);
     background: var(--background-content);
+  }
+
+  .salvar-objeto {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: xx-large;
+    cursor: pointer;
+
+    outline: none;
+    border: none;
+
+    background: var(--secondary);
+
+    border-radius: var(--br-circle);
+    padding: 0.5rem;
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    :global .icon {
+      font-size: xx-large;
+
+      fill: var(--secondary);
+      stroke: var(--secondary);
+      color: var(--secondary);
+
+      path {
+        stroke: var(--text);
+      }
+    }
   }
 </style>

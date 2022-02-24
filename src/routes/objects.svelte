@@ -42,7 +42,7 @@
 </script>
 
 <main>
-  {#if $objectList !== undefined}
+  {#if Boolean($objectList)}
     <div class="container-codigos">
       {#if $statusObject === 'success' && $objetos.length === 0}
         {#each $objectList as object}
@@ -81,6 +81,8 @@
     {:else}
       <span class="none-selected">Selecione um código!</span>
     {/if}
+  {:else}
+    <span>Nenhum código de rastreio salvo!</span>
   {/if}
 </main>
 
@@ -133,6 +135,7 @@
       &:active {
         filter: brightness(1) !important;
         transition: filter 0s ease-in-out;
+        transform: scale(0.9);
       }
 
       &:hover {

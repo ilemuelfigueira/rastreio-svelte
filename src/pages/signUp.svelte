@@ -30,7 +30,7 @@
   }
 
   $: if ($userStore) {
-    window.location.replace('/rastreio');
+    window.location.replace('/tracking');
   }
 </script>
 

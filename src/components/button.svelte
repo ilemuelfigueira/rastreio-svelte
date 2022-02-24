@@ -48,6 +48,7 @@
 
     &:active {
       border-color: var(--input-focus);
+      transform: scale(0.9);
     }
 
     :global {

@@ -3,11 +3,13 @@
 
   import AiFillHome from 'svelte-icons-pack/ai/AiFillHome';
   import CgDetailsMore from 'svelte-icons-pack/cg/CgDetailsMore';
+  import SiDarkreader from 'svelte-icons-pack/si/SiDarkreader';
 
   import HomeButton from '../components/homebutton.svelte';
   import { isOpen } from '../stores/dropdown';
   import { page } from '$app/stores';
   import { isSigned, signOut } from '../supabase.client';
+  import { theme } from '../stores/theme';
 
   async function redirect(url: string) {
     const location = window.location.pathname;
@@ -22,15 +24,26 @@
     const result = url === $page.url.pathname;
     return result;
   }
+
+  function changeTheme() {
+    const currentTheme = $theme;
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+    theme.set(nextTheme);
+  }
 </script>
 
-<main data-theme="light">
+<main data-theme={$theme}>
   <nav>
     <HomeButton text="Início" src={AiFillHome} href="/" />
 
-    <button on:click={() => isOpen.update((old) => !old)}>
-      <Icon className="icon" src={CgDetailsMore} />
-    </button>
+    <div class="switchers">
+      <button on:click={() => changeTheme()}>
+        <Icon className="icon" src={SiDarkreader} />
+      </button>
+      <button on:click={() => isOpen.update((old) => !old)}>
+        <Icon className="icon" src={CgDetailsMore} />
+      </button>
+    </div>
 
     <ul class:hidden={!$isOpen}>
       <button
@@ -80,6 +93,22 @@
       fill: var(--text);
       stroke: var(--text);
       color: var(--text);
+    }
+  }
+
+  .switchers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    :global .icon {
+      font-size: xx-large;
+
+      &:hover {
+        fill: var(--secondary);
+        stroke: var(--secondary);
+        color: var(--secondary);
+      }
     }
   }
 

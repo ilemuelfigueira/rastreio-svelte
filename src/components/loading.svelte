@@ -4,7 +4,7 @@
   div {
     min-width: 2rem;
     aspect-ratio: 1/1;
-    background: linear-gradient(45deg, transparent, transparent 45%, var(--input-focus));
+    background: linear-gradient(45deg, transparent, transparent 45%, var(--secondary));
     border-radius: 50%;
 
     position: relative;
@@ -27,7 +27,7 @@
     left: 0.2rem;
     right: 0.2rem;
     bottom: 0.2rem;
-    background: var(--background);
+    background: var(--primary);
     border-radius: 50%;
     z-index: 1000;
   }
@@ -38,7 +38,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent, transparent 45%, var(--input-focus));
+    background: linear-gradient(45deg, transparent, transparent 45%, var(--secondary));
     border-radius: 50%;
     z-index: 1;
     filter: blur(0.5rem);

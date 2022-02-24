@@ -30,6 +30,10 @@
 </div>
 
 <style type="text/scss">
+  span {
+    color: var(--text);
+  }
+
   .feedback-rastreio {
     display: flex;
     flex-direction: column;
@@ -41,8 +45,10 @@
 
     width: 100%;
 
-    border-top: 1px solid var(--btn);
+    border-top: 2px solid var(--secondary);
     border-radius: var(--br);
+
+    background: var(--primary);
 
     gap: 0.3rem;
 
@@ -78,21 +84,5 @@
       font-size: small;
       font-style: italic;
     }
-
-    /* @media (max-width: 600px) {
-      .header {
-        span {
-          font-size: small;
-        }
-      }
-
-      .localizacao {
-        font-size: x-small;
-      }
-
-      .period-date {
-        font-size: x-small;
-      }
-    } */
   }
 </style>

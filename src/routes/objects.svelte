@@ -79,7 +79,7 @@
     {#if $statusRastreio === 'loading'}
       <span>Carregando...</span>
     {:else}
-      <span>Selecione um código!</span>
+      <span class="none-selected">Selecione um código!</span>
     {/if}
   {/if}
 </main>
@@ -117,16 +117,17 @@
       font-size: larger;
       font-weight: bold;
 
-      background: var(--background);
+      background: var(--primary);
 
-      color: var(--text-primary);
+      color: var(--text);
       box-shadow: var(--lm-shadow-active);
 
       outline: none;
       border: none;
+      border-radius: var(--br);
 
       &.selected {
-        filter: brightness(0.9);
+        background: var(--secondary);
       }
 
       &:active {

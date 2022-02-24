@@ -19,12 +19,12 @@
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: var(--btn);
+    background: var(--primary);
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--btn-hover);
+    background: var(--secondary);
   }
 
   body {
@@ -46,10 +46,11 @@
   $font-size-xl: $font-size-base * 1.35;
 
   :root {
+    --primary: #a23e48;
+    --secondary: #ff8c42;
     --background: #f6f8ff;
-    --background-content: #fefefe;
-    --text-primary: #4b6a9b;
-    --text-secondary: #2b3442;
+    --background-content: #e5e6e9;
+    --text: #fff;
     --text-disabled: #4c5871;
     --lm-shadow-active: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     --lm-shadow-inactive: 0px 16px 30px -10px rgba(0, 0, 0, 0.2);
@@ -57,8 +58,9 @@
     --btn: #0079ff;
     --btn-hover: #60abff;
     --input-focus: #006cff;
-    --input-hover: #ffc000;
+    --input-hover: #ff8c42;
     --input-error: #b00020;
+    --input-background: #f6f8ff;
     --border-inactive: #e6e6e6;
     --hover-brightness: 0.95;
     --br: 5px;
@@ -68,10 +70,9 @@
   }
 
   [data-theme="dark"] {
-    --background: #141d2f;
-    --background-content: #1e2a47;
-    --text-primary: #fff;
-    --text-secondary: #fff;
+    --background: #888;
+    --primary: #222;
+    --background-content: #777;
     --lm-shadow-xl: rgba(70, 88, 109, 0.15);
     --lm-icon-bg: brightness(1000%);
   }

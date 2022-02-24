@@ -12,7 +12,7 @@
 
 <style type="text/scss">
   input {
-    border: 1px solid var(--border-inactive);
+    border: 2px solid var(--border-inactive);
     padding: 5px;
     outline: none !important;
 
@@ -22,7 +22,8 @@
 
     width: 100%;
 
-    background: var(--background);
+    background: var(--input-background);
+    filter: brightness(0.9);
 
     &::placeholder {
       font-size: small;
@@ -30,12 +31,14 @@
     }
 
     &:hover {
-      border: 1px solid var(--input-hover);
+      /* border: 1px solid var(--input-hover); */
+      border-color: var(--input-hover);
     }
 
     &:focus {
-      border: 1px solid var(--input-focus);
-      background: var(--background-content);
+      /* border: 1px solid var(--input-focus); */
+      border-color: var(--input-focus);
+      filter: brightness(1);
     }
   }
 </style>

@@ -35,19 +35,17 @@
 
       .info-icon {
         font-size: x-large;
-        fill: var(--text-primary);
+        fill: var(--text);
       }
 
       .text {
         font-size: x-large;
-        color: var(--text-primary);
+        color: var(--text);
       }
 
       &:hover {
         .text {
-          color: var(--text-primary-hover);
-          background: var(--bg-primary-hover);
-          opacity: var(--mid-opacity);
+          filter: brightness(0.9);
         }
       }
     }

@@ -38,7 +38,8 @@
 
     outline: none;
 
-    background: var(--background);
+    color: var(--text);
+    background: var(--primary);
 
     &:hover {
       border-color: var(--input-hover);

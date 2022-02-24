@@ -24,7 +24,7 @@
   }
 </script>
 
-<main>
+<main data-theme="light">
   <nav>
     <HomeButton text="Início" src={AiFillHome} href="/" />
 
@@ -61,7 +61,7 @@
   @import '../styles/global.scss';
 
   .active {
-    filter: brightness(0.9);
+    background: var(--secondary) !important;
   }
 
   button {
@@ -77,9 +77,9 @@
     :global .icon {
       font-size: xx-large;
 
-      fill: var(--text-primary);
-      stroke: var(--text-primary);
-      color: var(--text-primary);
+      fill: var(--text);
+      stroke: var(--text);
+      color: var(--text);
     }
   }
 
@@ -103,9 +103,9 @@
       width: 200px;
     }
 
-    border-bottom-left-radius: 50px;
+    border-bottom-left-radius: 30px;
 
-    background: var(--background);
+    background: var(--primary);
     box-shadow: var(--lm-shadow-inactive);
 
     padding: 1rem 0;
@@ -114,19 +114,26 @@
     overflow-x: hidden;
 
     button {
-      width: 100%;
+      width: 90%;
       text-align: center;
       padding: 0.5rem 0;
 
       outline: none;
       border: 0;
 
-      background: var(--background);
+      background: transparent;
 
-      color: var(--text-primary);
+      color: var(--text);
+
+      border-radius: var(--br);
+
+      &:hover {
+        filter: brightness(0.9) !important;
+        background: #888;
+      }
 
       &:active {
-        filter: brightness(0.9);
+        filter: brightness(1);
       }
     }
   }
@@ -145,7 +152,7 @@
 
     padding: 0 1rem;
 
-    background: var(--background);
+    background: var(--primary);
     box-shadow: var(--lm-shadow-inactive);
     z-index: 1;
   }

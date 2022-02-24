@@ -5,8 +5,10 @@
   import { buscarObjeto } from '../services/rastreio';
   import EventList from '../components/event-list.svelte';
   import Button from '../components/button.svelte';
+  import { onMount } from 'svelte';
 
   async function getObjects() {
+    statusObject.set('loading');
     const { data, error } = await getObjectsFromEmail($userStore.email);
 
     if (error) {
@@ -36,9 +38,9 @@
     rastrear($codigo);
   }
 
-  $: if (!Boolean($objectList) && $isSigned) {
+  onMount(() => {
     getObjects();
-  }
+  });
 </script>
 
 <main>
@@ -47,7 +49,7 @@
       {#if $statusObject === 'success' && $objetos.length === 0}
         {#each $objectList as object}
           <button class={`codigo ${object.codigo === $codigo ? 'selected' : ''}`}>
-            <span on:click={() => codigo.set(object.codigo)}>{object.codigo}</span>
+            <span on:click={() => codigo.set(object.codigo)}>{object.nome || object.codigo}</span>
           </button>
         {/each}
       {:else if $statusObject === 'loading'}
@@ -81,7 +83,7 @@
     {:else}
       <span class="none-selected">Selecione um código!</span>
     {/if}
-  {:else}
+  {:else if $statusObject === 'success' && !Boolean($objectList)}
     <span>Nenhum código de rastreio salvo!</span>
   {/if}
 </main>

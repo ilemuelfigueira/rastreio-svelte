@@ -51,6 +51,8 @@ export async function storeObject(codigo: string, email: string) {
       throw new Error(error.message);
     }
 
+    alert('Objeto salvo com sucesso!');
+
     return data;
   } catch (error) {
     alert(error.message);

@@ -5,6 +5,7 @@ export type ObjectI = {
   created_at: Date;
   updated_at: Date;
   codigo: string;
+  nome: string;
   user_id: string;
 };
 

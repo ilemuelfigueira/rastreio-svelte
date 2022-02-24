@@ -32,6 +32,10 @@
     color: var(--text-primary);
   }
 
+  button {
+    user-select: none;
+  }
+
   body,
   input,
   button,

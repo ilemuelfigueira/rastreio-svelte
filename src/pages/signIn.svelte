@@ -18,6 +18,7 @@
 
       if (error && error.status !== 406) {
         toast.danger('Login ou senha inválidos');
+        status.set('error');
         return;
       }
 

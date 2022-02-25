@@ -10,6 +10,8 @@
   import { page } from '$app/stores';
   import { isSigned, signOut } from '../supabase.client';
   import { theme } from '../stores/theme';
+  import Toast from '../components/toast.svelte';
+  import { toast } from '../stores/toast';
 
   async function redirect(url: string) {
     const location = window.location.pathname;
@@ -28,6 +30,12 @@
   function changeTheme() {
     const currentTheme = $theme;
     const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    const isLight = nextTheme === 'light';
+
+    if (isLight) toast.info('Clareando', 2000);
+    else toast.info('Escurecendo', 2000);
+
     theme.set(nextTheme);
   }
 </script>
@@ -68,6 +76,7 @@
   <section class="page">
     <slot />
   </section>
+  <Toast />
 </main>
 
 <style type="text/scss">

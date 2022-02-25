@@ -6,6 +6,7 @@
   import TextInput from '../components/text-input.svelte';
 
   import { email, password, status } from '../stores/auth';
+  import { toast } from '../stores/toast';
   import { signIn, userStore } from '../supabase.client';
 
   const showPassword = writable(false);
@@ -16,21 +17,23 @@
       const { error } = await signIn(email, password);
 
       if (error && error.status !== 406) {
-        alert('Login ou senha inválidos');
+        toast.danger('Login ou senha inválidos');
         return;
       }
 
-      alert('Bem vindo: ' + $userStore?.email);
+      toast.success('Bem vindo: ' + $userStore?.email);
 
       status.set('success');
     } catch (error) {
-      alert('Login ou senha inválidos');
+      toast.danger('Login ou senha inválidos');
       status.set('error');
     }
   }
 
   $: if ($userStore) {
-    window.location.replace('/tracking');
+    setTimeout(() => {
+      window.location.replace('/tracking');
+    }, 2000);
   }
 </script>
 

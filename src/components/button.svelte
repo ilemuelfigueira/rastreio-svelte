@@ -9,6 +9,11 @@
   import Icon from 'svelte-icons-pack';
 
   export let status: string = '';
+
+  $: if (status === 'error')
+    setTimeout(() => {
+      status = '';
+    }, 2000);
 </script>
 
 <button on:click>

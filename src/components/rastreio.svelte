@@ -5,10 +5,13 @@
   import { buscarObjeto } from '../services/rastreio';
 
   import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
+  import { toast } from '../stores/toast';
   import { storeObject, userStore } from '../supabase.client';
   import Button from './button.svelte';
   import EventList from './event-list.svelte';
   import TextInput from './text-input.svelte';
+  import { status as statusStoreObject } from '../stores/status';
+  import Loading from './loading.svelte';
 
   async function handleClick() {
     try {
@@ -20,6 +23,19 @@
       statusRastreio.set('success');
     } catch (error) {
       statusRastreio.set('error');
+      toast.danger('Não foi possível encontrar o código informado!');
+    }
+  }
+
+  async function handleStoreObject(codigo: string, email: string) {
+    try {
+      statusStoreObject.set('loading');
+
+      await storeObject(codigo, email);
+
+      statusStoreObject.set('success');
+    } catch (error) {
+      statusStoreObject.set('error');
     }
   }
 
@@ -40,8 +56,12 @@
 </main>
 
 {#if $objetos.length > 0 && $userStore?.email}
-  <button class="salvar-objeto" on:click={() => storeObject($codigo, $userStore.email)}>
-    <Icon className="icon" src={HiOutlineTag} />
+  <button class="salvar-objeto" on:click={() => handleStoreObject($codigo, $userStore.email)}>
+    {#if $statusStoreObject === 'loading'}
+      <Loading />
+    {:else}
+      <Icon className="icon" src={HiOutlineTag} />
+    {/if}
   </button>
 {/if}
 

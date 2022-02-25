@@ -33,8 +33,8 @@
 
     const isLight = nextTheme === 'light';
 
-    if (isLight) toast.info('Clareando', 2000);
-    else toast.info('Escurecendo', 2000);
+    if (isLight) toast.warning('Bom dia!');
+    else toast.warning('Boa noite!');
 
     theme.set(nextTheme);
   }

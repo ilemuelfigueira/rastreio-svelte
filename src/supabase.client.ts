@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { writable } from 'svelte/store';
+import { toast } from './stores/toast';
 
 const supabaseUrl = String(import.meta.env.VITE_SVELTE_APP_SUPABASE_URL);
 const supabaseAnonKey = String(import.meta.env.VITE_SVELTE_APP_SUPABASE_ANON_KEY);
@@ -42,19 +43,24 @@ export async function getObjectsFromEmail(email: string) {
 
 export async function storeObject(codigo: string, email: string) {
   try {
-    const { data, error } = await supabase.rpc('sp_se_store_object', {
+    const { data, error, status } = await supabase.rpc('sp_se_store_object', {
       _user_email: email,
       _codigo: codigo,
     });
 
     if (error) {
-      throw new Error(error.message);
+      switch (status) {
+        case 409:
+          throw new Error('Objeto já cadastrado');
+        default:
+          throw new Error('Erro ao cadastrar objeto');
+      }
     }
 
-    alert('Objeto salvo com sucesso!');
+    toast.success('Objeto salvo com sucesso!');
 
     return data;
   } catch (error) {
-    alert(error.message);
+    toast.danger(error.message);
   }
 }

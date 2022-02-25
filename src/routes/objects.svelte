@@ -1,11 +1,13 @@
 <script lang="ts">
   import { objectList, status as statusObject } from '../stores/object';
-  import { getObjectsFromEmail, isSigned, userStore } from '../supabase.client';
+  import { getObjectsFromEmail, userStore } from '../supabase.client';
   import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
   import { buscarObjeto } from '../services/rastreio';
   import EventList from '../components/event-list.svelte';
   import Button from '../components/button.svelte';
   import { onMount } from 'svelte';
+  import { toast } from '../stores/toast';
+  import Loading from '../components/loading.svelte';
 
   async function getObjects() {
     statusObject.set('loading');
@@ -36,6 +38,10 @@
 
   $: if ($codigo !== '') {
     rastrear($codigo);
+  }
+
+  $: if ($statusRastreio === 'error') {
+    toast.danger('Não foi possível rastrear o código informado!');
   }
 
   onMount(() => {
@@ -79,7 +85,7 @@
       </div>
     {/if}
     {#if $statusRastreio === 'loading'}
-      <span>Carregando...</span>
+      <Loading />
     {:else}
       <span class="none-selected">Selecione um código!</span>
     {/if}

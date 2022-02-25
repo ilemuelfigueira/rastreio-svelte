@@ -39,11 +39,12 @@
     outline: none;
 
     color: var(--text);
-    background: var(--primary);
+    background: var(--secondary);
 
     &:hover {
-      border-color: var(--input-hover);
+      filter: brightness(0.95);
       cursor: pointer;
+      transition: ease-in-out 0.2s;
     }
 
     &:active {

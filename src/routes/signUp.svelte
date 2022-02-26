@@ -28,7 +28,7 @@
       status.set('success');
 
       setTimeout(() => {
-        window.location.assign('/tracking');
+        window.location.assign('/signIn');
       }, 2000);
     } catch (error) {
       toast.danger('Login ou senha inválidos');

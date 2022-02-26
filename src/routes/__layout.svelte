@@ -3,12 +3,12 @@
 
   import AiFillHome from 'svelte-icons-pack/ai/AiFillHome';
   import CgDetailsMore from 'svelte-icons-pack/cg/CgDetailsMore';
-  import SiDarkreader from 'svelte-icons-pack/si/SiDarkreader';
+  import BiMoon from 'svelte-icons-pack/bi/BiMoon';
 
   import HomeButton from '../components/homebutton.svelte';
   import { isOpen } from '../stores/dropdown';
   import { page } from '$app/stores';
-  import { isSigned, signOut } from '../supabase.client';
+  import { isSigned, signOut, userStore } from '../supabase.client';
   import { theme } from '../stores/theme';
   import Toast from '../components/toast.svelte';
   import { toast } from '../stores/toast';
@@ -45,8 +45,13 @@
     <HomeButton text="Início" src={AiFillHome} href="/" />
 
     <div class="switchers">
+      {#if $isSigned}
+        <span>
+          {$userStore.name}
+        </span>
+      {/if}
       <button on:click={() => changeTheme()}>
-        <Icon className="icon" src={SiDarkreader} />
+        <Icon className="icon" src={BiMoon} />
       </button>
       <button on:click={() => isOpen.update((old) => !old)}>
         <Icon className="icon" src={CgDetailsMore} />
@@ -110,6 +115,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    span {
+      color: var(--text);
+    }
 
     :global .icon {
       font-size: xx-large;

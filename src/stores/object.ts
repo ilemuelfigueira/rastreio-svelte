@@ -11,3 +11,4 @@ export type ObjectI = {
 
 export const objectList = writable<ObjectI[]>();
 export const status = writable<'loading' | 'success' | 'error' | ''>('');
+export const editables = writable<string[]>([]);

@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { objectList, status as statusObject } from '../stores/object';
-  import { getObjectsFromEmail, userStore } from '../supabase.client';
-  import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
-  import { buscarObjeto } from '../services/rastreio';
   import EventList from '../components/event-list.svelte';
   import Button from '../components/button.svelte';
-  import { onMount } from 'svelte';
+  import { objectList, status as statusObject } from '../stores/object';
+  import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
   import { toast } from '../stores/toast';
-  import Loading from '../components/loading.svelte';
+  import { buscarObjeto } from '../services/rastreio';
+  import { getObjectsFromEmail, userStore } from '../supabase.client';
+  import FiEdit from 'svelte-icons-pack/fi/FiEdit';
+  import BiShow from 'svelte-icons-pack/bi/BiShow';
+  import Icon from 'svelte-icons-pack';
+  import { onMount } from 'svelte';
 
   async function getObjects() {
     statusObject.set('loading');
@@ -54,9 +56,19 @@
     <div class="container-codigos">
       {#if $statusObject === 'success' && $objetos.length === 0}
         {#each $objectList as object}
-          <button class={`codigo ${object.codigo === $codigo ? 'selected' : ''}`}>
-            <span on:click={() => codigo.set(object.codigo)}>{object.nome || object.codigo}</span>
-          </button>
+          <div class={`codigo ${object.codigo === $codigo ? 'selected' : ''}`}>
+            <!-- <div tooltip-string="Alterar apelido" tooltip-align="left">
+              <Icon className="icon-edit" src={FiEdit} />
+            </div> -->
+            <span>{object.nome || object.codigo}</span>
+            <div
+              tooltip-string="Rastrear"
+              tooltip-align="right"
+              on:click={() => codigo.set(object.codigo)}
+            >
+              <Icon className="icon-show" src={BiShow} />
+            </div>
+          </div>
         {/each}
       {:else if $statusObject === 'loading'}
         <span>Carregando</span>
@@ -84,11 +96,11 @@
         </div>
       </div>
     {/if}
-    {#if $statusRastreio === 'loading'}
+    <!-- {#if $statusRastreio === 'loading'}
       <Loading />
     {:else}
       <span class="none-selected">Selecione um código!</span>
-    {/if}
+    {/if} -->
   {:else if $statusObject === 'success' && !Boolean($objectList)}
     <span>Nenhum código de rastreio salvo!</span>
   {/if}
@@ -119,7 +131,11 @@
     gap: 1rem;
 
     .codigo {
-      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 0.5rem;
 
       padding: 1rem;
 
@@ -136,19 +152,88 @@
       border: none;
       border-radius: var(--br);
 
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [tooltip-string][tooltip-align='left'] {
+        &:hover:after {
+          top: 0 !important;
+          bottom: 0 !important;
+          right: 2rem !important;
+        }
+      }
+
+      [tooltip-string][tooltip-align='right'] {
+        &:hover:after {
+          top: 0 !important;
+          bottom: 0 !important;
+          left: 2rem !important;
+        }
+      }
+
+      [tooltip-string][tooltip-align] {
+        position: relative;
+
+        &::before {
+          content: '';
+
+          display: none;
+        }
+
+        &:hover::after {
+          content: attr(tooltip-string);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          position: absolute;
+
+          font-size: small;
+          border-radius: var(--br);
+
+          background: var(--secondary);
+
+          width: max-content;
+          padding: 0.5rem;
+
+          text-align: center;
+
+          z-index: 1;
+        }
+      }
+
+      :global {
+        .icon-edit {
+          font-size: x-large;
+          stroke: var(--text);
+
+          &:hover {
+            cursor: pointer;
+
+            transform: scale(1.1);
+            filter: brightness(0.9);
+            transition: filter 0.2s ease-in-out;
+          }
+        }
+
+        .icon-show {
+          font-size: x-large;
+          fill: var(--text);
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.1);
+            filter: brightness(0.9);
+            transition: filter 0.2s ease-in-out;
+          }
+        }
+      }
+
       &.selected {
         background: var(--secondary);
-      }
-
-      &:active {
-        filter: brightness(1) !important;
-        transition: filter 0s ease-in-out;
-        transform: scale(0.9);
-      }
-
-      &:hover {
-        filter: brightness(0.9);
-        transition: filter 0.2s ease-in-out;
       }
     }
   }

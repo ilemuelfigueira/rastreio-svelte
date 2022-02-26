@@ -5,16 +5,17 @@
 
   import TextInput from '../components/text-input.svelte';
 
-  import { email, password, status } from '../stores/auth';
+  import { email, name, password, status } from '../stores/auth';
   import { toast } from '../stores/toast';
-  import { signIn, userStore } from '../supabase.client';
+  import { signUp } from '../supabase.client';
 
   const showPassword = writable(false);
 
-  async function handleSignIn(email: string, password: string) {
+  async function handleSignUp(params: { email: string; name: string; password: string }) {
+    const { email, name, password } = params;
     try {
       status.set('loading');
-      const { error } = await signIn(email, password);
+      const { error } = await signUp(email, name, password);
 
       if (error && error.status !== 406) {
         toast.danger('Login ou senha inválidos');
@@ -22,34 +23,39 @@
         return;
       }
 
-      toast.success('Bem vindo: ' + $userStore.name);
-
-      console.log('usuario', $userStore);
+      toast.success('Verifique a caixa de email e o spam!');
 
       status.set('success');
+
+      setTimeout(() => {
+        window.location.assign('/tracking');
+      }, 2000);
     } catch (error) {
       toast.danger('Login ou senha inválidos');
       status.set('error');
     }
   }
-
-  $: if ($userStore) {
-    setTimeout(() => {
-      window.location.assign('/tracking');
-    }, 2000);
-  }
 </script>
 
 <main>
   <div class="inputList">
-    <TextInput bind:value={$email} placeholder="Digite um email válido" />
+    <TextInput bind:value={$email} placeholder="Digite um email" />
+    <TextInput bind:value={$name} placeholder="Digite o seu nome" />
     <TextInput password={!$showPassword} bind:value={$password} placeholder="Digite uma senha" />
     <div class="showPassword">
       <input type="checkbox" bind:checked={$showPassword} placeholder="Mostrar senha" />
       <span>Mostrar senha</span>
     </div>
   </div>
-  <Button status={$status} on:click={() => handleSignIn($email, $password)}>Entrar</Button>
+  <Button
+    status={$status}
+    on:click={() =>
+      handleSignUp({
+        email: $email,
+        name: $name,
+        password: $password,
+      })}>Cadastrar</Button
+  >
 </main>
 
 <style type="text/scss">

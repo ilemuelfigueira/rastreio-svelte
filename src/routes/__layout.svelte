@@ -4,6 +4,7 @@
   import AiFillHome from 'svelte-icons-pack/ai/AiFillHome';
   import CgDetailsMore from 'svelte-icons-pack/cg/CgDetailsMore';
   import BiMoon from 'svelte-icons-pack/bi/BiMoon';
+  import BsSun from 'svelte-icons-pack/bs/BsSun';
 
   import HomeButton from '../components/homebutton.svelte';
   import { isOpen } from '../stores/dropdown';
@@ -51,7 +52,11 @@
         </span>
       {/if}
       <button on:click={() => changeTheme()}>
-        <Icon className="icon" src={BiMoon} />
+        {#if $theme === 'light'}
+          <Icon className="icon" src={BsSun} />
+        {:else}
+          <Icon className="icon" src={BiMoon} />
+        {/if}
       </button>
       <button on:click={() => isOpen.update((old) => !old)}>
         <Icon className="icon" src={CgDetailsMore} />

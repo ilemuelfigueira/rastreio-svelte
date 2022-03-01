@@ -75,3 +75,25 @@ export async function storeObject(codigo: string, email: string) {
     toast.danger(error.message);
   }
 }
+
+export async function updateObjectName(codigo: string, nome: string) {
+  try {
+    const { data, error, status } = await supabase.rpc('sp_se_update_object_name', {
+      _name: nome,
+      _code: codigo,
+    });
+
+    if (error) {
+      switch (status) {
+        default:
+          throw new Error('Erro ao atualizar objeto');
+      }
+    }
+
+    toast.success('Objeto atualizado com sucesso!');
+
+    return data;
+  } catch (error) {
+    toast.danger(error.message);
+  }
+}

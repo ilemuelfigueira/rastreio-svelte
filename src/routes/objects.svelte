@@ -5,11 +5,21 @@
   import { codigo, objetos, status as statusRastreio } from '../stores/rastreio';
   import { toast } from '../stores/toast';
   import { buscarObjeto } from '../services/rastreio';
-  import { getObjectsFromEmail, userStore } from '../supabase.client';
+  import { getObjectsFromEmail, updateObjectName, userStore } from '../supabase.client';
+
   import FiEdit from 'svelte-icons-pack/fi/FiEdit';
-  import BiShow from 'svelte-icons-pack/bi/BiShow';
   import Icon from 'svelte-icons-pack';
   import { onMount } from 'svelte';
+  import Modal from '../components/modal.svelte';
+
+  import { code, nickName } from '../stores/object-form';
+  import TextInput from '../components/text-input.svelte';
+  import Loading from '../components/loading.svelte';
+  import { writable } from 'svelte/store';
+
+  const isOpen = writable(false);
+
+  const isChangingObjectName = writable(false);
 
   async function getObjects() {
     statusObject.set('loading');
@@ -38,6 +48,18 @@
     }
   }
 
+  async function handleUpdateObjectName(codigo: string, nome: string) {
+    try {
+      isChangingObjectName.set(true);
+      await updateObjectName(codigo, nome);
+    } finally {
+      isChangingObjectName.set(false);
+      isOpen.set(false);
+
+      await getObjects();
+    }
+  }
+
   $: if ($codigo !== '') {
     rastrear($codigo);
   }
@@ -51,22 +73,36 @@
   });
 </script>
 
+<Modal
+  title="Inserir nome do objeto"
+  isConfirming={$isChangingObjectName === true}
+  on:confirm={() => handleUpdateObjectName($code, $nickName)}
+  {isOpen}
+>
+  <div slot="body">
+    <div class="input-group">
+      <TextInput bind:value={$nickName} placeholder="Nome do objeto" />
+    </div>
+  </div>
+</Modal>
+
 <main>
   {#if Boolean($objectList)}
     <div class="container-codigos">
       {#if $statusObject === 'success' && $objetos.length === 0}
         {#each $objectList as object}
           <div class={`codigo ${object.codigo === $codigo ? 'selected' : ''}`}>
-            <!-- <div tooltip-string="Alterar apelido" tooltip-align="left">
-              <Icon className="icon-edit" src={FiEdit} />
-            </div> -->
-            <span>{object.nome || object.codigo}</span>
+            <span on:click={() => codigo.set(object.codigo)}>{object.nome || object.codigo}</span>
             <div
+              on:click={() => {
+                isOpen.update((old) => !old);
+                nickName.set(object.nome || object.codigo);
+                code.set(object.codigo);
+              }}
               tooltip-string="Rastrear"
               tooltip-align="right"
-              on:click={() => codigo.set(object.codigo)}
             >
-              <Icon className="icon-show" src={BiShow} />
+              <Icon className="icon-edit" src={FiEdit} />
             </div>
           </div>
         {/each}
@@ -96,11 +132,11 @@
         </div>
       </div>
     {/if}
-    <!-- {#if $statusRastreio === 'loading'}
+    {#if $statusRastreio === 'loading'}
       <Loading />
     {:else}
       <span class="none-selected">Selecione um código!</span>
-    {/if} -->
+    {/if}
   {:else if $statusObject === 'success' && !Boolean($objectList)}
     <span>Nenhum código de rastreio salvo!</span>
   {/if}
@@ -134,6 +170,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      cursor: pointer;
 
       gap: 0.5rem;
 

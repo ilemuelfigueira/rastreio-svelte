@@ -13,6 +13,26 @@
   import { theme } from '../stores/theme';
   import Toast from '../components/toast.svelte';
   import { toast } from '../stores/toast';
+  import { onMount } from 'svelte';
+  import { isMounting } from '../stores/lifecycle';
+
+  onMount(() => {
+    try {
+      isMounting.set(true);
+
+      const storagedTheme = sessionStorage.getItem('theme');
+
+      if (storagedTheme) {
+        theme.set(storagedTheme);
+        return;
+      }
+      theme.set('light');
+    } catch (error) {
+      toast.danger('Erro ao carregar tema', 2000);
+    } finally {
+      isMounting.set(false);
+    }
+  });
 
   async function redirect(url: string) {
     const location = window.location.pathname;
@@ -38,57 +58,60 @@
     else toast.warning('Boa noite!');
 
     theme.set(nextTheme);
+    sessionStorage.setItem('theme', nextTheme);
   }
 </script>
 
-<main data-theme={$theme}>
-  <nav>
-    <HomeButton text="Início" src={AiFillHome} href="/" />
+{#if !$isMounting}
+  <main data-theme={$theme}>
+    <nav>
+      <HomeButton text="Início" src={AiFillHome} href="/" />
 
-    <div class="switchers">
-      {#if $isSigned}
-        <span>
-          {$userStore.name}
-        </span>
-      {/if}
-      <button on:click={() => changeTheme()}>
-        {#if $theme === 'light'}
-          <Icon className="icon" src={BsSun} />
-        {:else}
-          <Icon className="icon" src={BiMoon} />
+      <div class="switchers">
+        {#if $isSigned}
+          <span>
+            {$userStore.name}
+          </span>
         {/if}
-      </button>
-      <button on:click={() => isOpen.update((old) => !old)}>
-        <Icon className="icon" src={CgDetailsMore} />
-      </button>
-    </div>
-
-    <ul class:hidden={!$isOpen}>
-      <button
-        class={`${isActive('/tracking') ? 'active' : ''}`}
-        on:click={() => redirect('/tracking')}
-      >
-        Rastreio
-      </button>
-      {#if $isSigned}
-        <button
-          class={`${isActive('/objects') ? 'active' : ''}`}
-          on:click={() => redirect('/objects')}
-        >
-          Objetos
+        <button on:click={() => changeTheme()}>
+          {#if $theme === 'light'}
+            <Icon className="icon" src={BsSun} />
+          {:else}
+            <Icon className="icon" src={BiMoon} />
+          {/if}
         </button>
-        <button on:click={() => signOut()}> Sair </button>
-      {:else}
-        <button on:click={() => redirect('/signIn')}> Entrar </button>
-        <button on:click={() => redirect('/signUp')}> Cadastrar </button>
-      {/if}
-    </ul>
-  </nav>
-  <section class="page">
-    <slot />
-  </section>
-  <Toast />
-</main>
+        <button on:click={() => isOpen.update((old) => !old)}>
+          <Icon className="icon" src={CgDetailsMore} />
+        </button>
+      </div>
+
+      <ul class:hidden={!$isOpen}>
+        <button
+          class={`${isActive('/tracking') ? 'active' : ''}`}
+          on:click={() => redirect('/tracking')}
+        >
+          Rastreio
+        </button>
+        {#if $isSigned}
+          <button
+            class={`${isActive('/objects') ? 'active' : ''}`}
+            on:click={() => redirect('/objects')}
+          >
+            Objetos
+          </button>
+          <button on:click={() => signOut()}> Sair </button>
+        {:else}
+          <button on:click={() => redirect('/signIn')}> Entrar </button>
+          <button on:click={() => redirect('/signUp')}> Cadastrar </button>
+        {/if}
+      </ul>
+    </nav>
+    <section class="page">
+      <slot />
+    </section>
+    <Toast />
+  </main>
+{/if}
 
 <style type="text/scss">
   @import '../styles/global.scss';

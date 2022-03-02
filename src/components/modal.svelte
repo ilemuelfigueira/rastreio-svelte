@@ -21,7 +21,6 @@
 
   function cancel() {
     dispatch('cancel');
-    isOpen.set(false);
   }
 </script>
 
@@ -31,7 +30,7 @@
       <div class="header">
         <span>{title}</span>
 
-        <button class="close-button" on:click={() => isOpen.update((old) => !old)}>
+        <button class="close-button" on:click={() => cancel()}>
           <Icon class="icon" src={BiSolidXCircle} />
         </button>
       </div>
@@ -132,6 +131,8 @@
       margin-top: 0;
 
       background: var(--secondary);
+
+      border-radius: 0 0 var(--br) var(--br);
 
       :global button {
         width: 100%;

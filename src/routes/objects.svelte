@@ -76,6 +76,7 @@
 <Modal
   title="Inserir nome do objeto"
   isConfirming={$isChangingObjectName === true}
+  on:cancel={() => isOpen.set(false)}
   on:confirm={() => handleUpdateObjectName($code, $nickName)}
   {isOpen}
 >

@@ -100,7 +100,7 @@
                 nickName.set(object.nome || object.codigo);
                 code.set(object.codigo);
               }}
-              tooltip-string="Rastrear"
+              tooltip-string="Alterar nome"
               tooltip-align="right"
             >
               <Icon className="icon-edit" src={FiEdit} />

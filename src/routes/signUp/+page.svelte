@@ -1,13 +1,13 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
 
-  import Button from '../components/button.svelte';
+  import Button from '../../components/button.svelte';
 
-  import TextInput from '../components/text-input.svelte';
+  import TextInput from '../../components/text-input.svelte';
 
-  import { email, name, password, status } from '../stores/auth';
-  import { toast } from '../stores/toast';
-  import { signUp } from '../supabase.client';
+  import { email, name, password, status } from '../../stores/auth';
+  import { toast } from '../../stores/toast';
+  import { signUp } from '../../supabase.client';
 
   const showPassword = writable(false);
 

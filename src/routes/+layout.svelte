@@ -1,10 +1,4 @@
 <script lang="ts">
-  import Icon from 'svelte-icons-pack';
-
-  import AiFillHome from 'svelte-icons-pack/ai/AiFillHome';
-  import CgDetailsMore from 'svelte-icons-pack/cg/CgDetailsMore';
-  import BiMoon from 'svelte-icons-pack/bi/BiMoon';
-  import BsSun from 'svelte-icons-pack/bs/BsSun';
 
   import HomeButton from '../components/homebutton.svelte';
   import { isOpen } from '../stores/dropdown';
@@ -65,7 +59,7 @@
 {#if !$isMounting}
   <main data-theme={$theme}>
     <nav>
-      <HomeButton text="Início" src={AiFillHome} href="/" />
+      <HomeButton text="Início" href="/" />
 
       <div class="switchers">
         {#if $isSigned}
@@ -75,13 +69,13 @@
         {/if}
         <button on:click={() => changeTheme()}>
           {#if $theme === 'light'}
-            <Icon className="icon" src={BsSun} />
+            <i class="ph-sun"></i>
           {:else}
-            <Icon className="icon" src={BiMoon} />
+            <i class="ph-moon"></i>
           {/if}
         </button>
         <button on:click={() => isOpen.update((old) => !old)}>
-          <Icon className="icon" src={CgDetailsMore} />
+          <i class="ph-dots-three"></i>
         </button>
       </div>
 
@@ -130,7 +124,7 @@
 
     background: transparent;
 
-    :global .icon {
+    :global i {
       font-size: xx-large;
 
       fill: var(--text);

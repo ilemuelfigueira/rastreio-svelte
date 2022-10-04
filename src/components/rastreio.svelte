@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Icon from 'svelte-icons-pack';
-  import HiOutlineTag from 'svelte-icons-pack/hi/HiOutlineTag';
 
   import { buscarObjeto } from '../services/rastreio';
 
@@ -60,7 +58,7 @@
     {#if $statusStoreObject === 'loading'}
       <Loading />
     {:else}
-      <Icon className="icon" src={HiOutlineTag} />
+      <i class="ph-tag"></i>
     {/if}
   </button>
 {/if}

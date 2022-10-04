@@ -4,7 +4,7 @@ import { RastreioResponse } from './index.types';
 export async function buscarObjeto(codigo: string): Promise<RastreioResponse> {
   const config: AxiosRequestConfig = {
     method: 'GET',
-    url: `https://cors-all-proxy.herokuapp.com/fetch/https://proxyapp.correios.com.br/v1/sro-rastro/${codigo}`,
+    url: `https://cors.ialexanderbrito.dev/fetch/https://proxyapp.correios.com.br/v1/sro-rastro/${codigo}`,
   };
 
   const { data } = await axios.request(config);

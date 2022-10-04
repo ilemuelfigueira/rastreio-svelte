@@ -2,8 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import { writable } from 'svelte/store';
 import { toast } from './stores/toast';
 
-const supabaseUrl = String(import.meta.env.VITE_SVELTE_APP_SUPABASE_URL);
-const supabaseAnonKey = String(import.meta.env.VITE_SVELTE_APP_SUPABASE_ANON_KEY);
+const supabaseUrl = String("https://rnnxjjoyyzczgxaufkdz.supabase.co");
+const supabaseAnonKey = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJubnhqam95eXpjemd4YXVma2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDQ3NjkwNTgsImV4cCI6MTk2MDM0NTA1OH0.K5FVxKppcRFkB1yepxflf5Q5hEX00aAy1WpzlbFog60");
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 

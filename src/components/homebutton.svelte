@@ -1,8 +1,6 @@
 <script lang="ts">
-  import Icon from 'svelte-icons-pack';
 
   export let text: string;
-  export let src: any;
   export let href: string;
 
   async function redirect(url: string) {
@@ -15,9 +13,7 @@
 </script>
 
 <div class="home" on:click={() => redirect(href)}>
-  {#if src}
-    <Icon className="info-icon" {src} />
-  {/if}
+  <i class="ph-house"></i>
   <span class="text">{text}</span>
 </div>
 
@@ -33,9 +29,11 @@
 
       gap: 0.3rem;
 
-      .info-icon {
+      i {
         font-size: x-large;
         fill: var(--text);
+        stroke: var(--text);
+        color: var(--text);
       }
 
       .text {

@@ -1,12 +1,7 @@
 <script lang="ts">
   import Loading from './loading.svelte';
 
-  import BiErrorCircle from 'svelte-icons-pack/bi/BiErrorCircle';
-  import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
-
   export let icon: string = '';
-
-  import Icon from 'svelte-icons-pack';
 
   export let status: string = '';
 
@@ -20,9 +15,11 @@
   {#if status === 'loading'}
     <Loading />
   {:else if status === 'error'}
-    <Icon className="icon" src={BiErrorCircle} />
+<!--    <Icon className="icon" src={BiErrorCircle} />-->
+    <i class="ph-warning-circle"></i>
   {:else if icon === 'x'}
-    <Icon className="icon" src={HiSolidXCircle} />
+<!--    <Icon className="icon" src={HiSolidXCircle} />-->
+    <i class="ph-x-circle"></i>
   {:else}
     <slot />
   {/if}

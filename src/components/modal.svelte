@@ -1,6 +1,4 @@
 <script lang="ts">
-  import BiSolidXCircle from 'svelte-icons-pack/bi/BiSolidXCircle';
-  import Icon from 'svelte-icons-pack';
   import { createEventDispatcher } from 'svelte';
 
   import { Writable } from 'svelte/store';
@@ -9,9 +7,9 @@
 
   export let isOpen: Writable<boolean>;
 
-  export let isConfirming: boolean = false;
+  export let isConfirming = false;
 
-  export let title: string = 'Modal title';
+  export let title = 'Modal title';
 
   const dispatch = createEventDispatcher();
 
@@ -31,7 +29,7 @@
         <span>{title}</span>
 
         <button class="close-button" on:click={() => cancel()}>
-          <Icon class="icon" src={BiSolidXCircle} />
+          <i class="ph-x-circle"></i>
         </button>
       </div>
       <div class="body">
@@ -50,6 +48,109 @@
 {/if}
 
 <style type="text/scss">
+
+  .content {
+    background: var(--background);
+
+    border-radius: var(--br) !important;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content .header :first-child {
+    margin-right: 1rem;
+  }
+
+  .content .header .close-button:hover {
+    transform: scale(1.2);
+    fill: var(--input-error);
+  }
+
+  .content .header .close-button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: x-large;
+    cursor: pointer;
+  }
+
+  .content .body {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0 0 var(--br) var(--br);
+
+    background: var(--background-content);
+  }
+
+  .content .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 1rem;
+    border-radius: var(--br) var(--br) 0 0;
+
+    background: var(--background);
+  }
+
+  .footer button {
+    width: 100%;
+  }
+
+  .footer button:first-child:hover {
+    color: var(--input-error);
+  }
+
+  .footer button:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    background: white;
+    color: #000;
+
+    border-right: 0;
+  }
+
+  .footer button:last-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    border-left: 0;
+  }
+
+  .footer[loading='S'] {
+      padding: 0.5rem;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    padding: 0;
+    margin-top: 0;
+
+    background: var(--secondary);
+
+    border-radius: 0 0 var(--br) var(--br);
+  }
+
   #modal {
     position: fixed;
     top: 0;
@@ -63,109 +164,5 @@
     align-items: center;
 
     aspect-ratio: 4/3;
-
-    .content {
-      background: var(--background);
-
-      border-radius: var(--br) !important;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .content .header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      width: 100%;
-      padding: 1rem;
-      border-radius: var(--br) var(--br) 0 0;
-
-      background: var(--background);
-    }
-
-    .content .header :first-child {
-      margin-right: 1rem;
-    }
-
-    .content .header .close-button {
-      padding: 0;
-      margin: 0;
-      border: none;
-      background: none;
-      cursor: pointer;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        transform: scale(1.2);
-        fill: var(--input-error);
-      }
-
-      font-size: x-large;
-      cursor: pointer;
-    }
-
-    .content .body {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 0 0 var(--br) var(--br);
-
-      background: var(--background-content);
-    }
-
-    .footer {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-      width: 100%;
-      padding: 0;
-      margin-top: 0;
-
-      background: var(--secondary);
-
-      border-radius: 0 0 var(--br) var(--br);
-
-      :global button {
-        width: 100%;
-      }
-
-      :global button:first-child {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-
-        background: white;
-        color: #000;
-
-        &:hover {
-          color: var(--input-error);
-        }
-
-        border-right: 0;
-      }
-
-      :global button:last-child {
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-
-        border-left: 0;
-      }
-    }
-
-    .footer {
-      &[loading='S'] {
-        padding: 0.5rem;
-      }
-    }
   }
 </style>
